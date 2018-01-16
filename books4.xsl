@@ -20,13 +20,18 @@
         <h1>Contents</h1>
         <xsl:apply-templates mode="nav" />
         <hr/>
-        <xsl:apply-templates>
-        <xsl:for-each select="book">
-          <xsl:call-template name="show_price">
-            <xsl:with-param name="price" select="price"/>
+        <xsl:apply-templates/>
+        <br/><br/>
+         <!-- <xsl:param name="title"/>
+        <xsl:param name="publish_date"/> -->
+        <h4>Call This Template Here</h4>
+        <xsl:for-each select="catalog/book">
+        <xsl:call-template name="show-info">          
+            <xsl:with-param name="titlez" select="title"/>
+            
+            <xsl:with-param name="publish_date" select="publish_date"/>          
           </xsl:call-template>
         </xsl:for-each>
-        </xsl:apply-templates>
         </body>
         </html>
     </xsl:template>
@@ -54,10 +59,9 @@
       <div><u>Genre</u>: <xsl:apply-templates/></div>
     </xsl:template>
 
-    <!-- <xsl:template name="show_price" >
-    <xsl:param name="price"/>
-      <div><u>Price</u>: <xsl:apply-templates select="$price"/></div>
-    </xsl:template> -->
+    <xsl:template match="price">
+      <div><u>Price</u>: <xsl:apply-templates/></div>
+    </xsl:template>
 
     <xsl:template match="publish_date">
       <div><u>Publish date</u>: <xsl:apply-templates/></div>
@@ -67,9 +71,16 @@
       <div><u>Description</u>: <i><xsl:apply-templates/></i></div>
     </xsl:template>
 
-    <!-- <xsl:template name="show_price">
-      <xsl:param name="price"/>
-      <p>Price: <xsl:value-of select="$price"/></p>
-    </xsl:template> -->
+    <!-- call this template -->
+          <xsl:template name="show-info">
+            <xsl:param name="titlez"/>
+            <xsl:param name="publish_date"/>            
+            <div>
+              Title: <xsl:value-of select="$titlez"/><br/>
+              Release date: <xsl:value-of select="$publish_date"/><br/>
+              --------------------------------------------
+            </div>
+          </xsl:template>
+        
 
 </xsl:stylesheet>
